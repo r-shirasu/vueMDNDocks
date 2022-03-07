@@ -1,6 +1,4 @@
 <script>
-import uniqueId from "lodash.uniqueid";
-
 export default {
   props: {
     label: { required: true, type: String },
@@ -17,7 +15,13 @@ export default {
 
 <template>
   <div>
-    <input type="checkbox" :id="id" :checked="isDone" />
+    <input
+      type="checkbox"
+      class="checkbox"
+      :id="id"
+      :checked="isDone"
+      @change="$emit('checkbox-changed')"
+    />
     <label :for="id">{{ label }}</label>
   </div>
 </template>
