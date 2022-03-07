@@ -22,14 +22,23 @@ export default {
   },
   methods: {
     toggleToItemEditForm() {
+      console.log(this.$refs.editButton);
       this.isEditing = true;
     },
-    itemEdited(newLabel) {
-      this.$emit("item-edited", newLabel);
+    focusOnEditButton() {
+      this.$nextTick(() => {
+        const editButtonRef = this.$refs.editButton;
+        editButtonRef.focus();
+      });
+    },
+    itemEdited(newItemName) {
+      this.$emit("item-edited", newItemName);
       this.isEditing = false;
+      this.focusOnEditButton();
     },
     editCancelled() {
       this.isEditing = false;
+      this.focusOnEditButton();
     },
   },
 };
@@ -48,8 +57,14 @@ export default {
       <label :for="id" class="checkbox-label">{{ label }}</label>
     </div>
     <div class="btn-group">
-      <button type="button" class="btn" @click="toggleToItemEditForm">
-        Edit <span class="visually-hidden">{{ label }}</span>
+      <button
+        type="button"
+        class="btn"
+        ref="editButton"
+        @click="toggleToItemEditForm"
+      >
+        Edit
+        <span class="visually-hidden">{{ label }}</span>
       </button>
       <button type="button" class="btn btn__danger" @click="deleteToDo">
         Delete <span class="visually-hidden">{{ label }}</span>
