@@ -21,6 +21,9 @@ export default {
     },
   },
   methods: {
+    deleteToDo() {
+      this.$emit("item-deleted");
+    },
     toggleToItemEditForm() {
       console.log(this.$refs.editButton);
       this.isEditing = true;
